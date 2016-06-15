@@ -18,34 +18,32 @@ try:
     USERNAME = config.get('username')
     PASSWORD = config.get('password')
     JENKINS_URL = config.get('jenkins_url')
-    PREFIX = config.get('prefix',"")
+#    PREFIX = config.get('prefix',"")
 except Exception as E:
     print E
     sys.exit(1)
 
-if PREFIX == "":
-    PREFIX = ["HIGH-DTB","HIGH-BI","DISASTER-DTB","HIGH-SUPPORT"]
 
 # used by zabbix to look up for jobs that should be monitored
-def _discovery(prefix=""):
+def _discovery(jobname=""):
     jobs = requests.get(JENKINS_URL + "/view/zabbix/api/json", verify=False, auth=(USERNAME,PASSWORD))
     data = { 'data':[] }
-    if prefix.lower() == 'zabbix':
+    if jobname.lower() == 'all':
         for job in jobs.json().get('jobs'):
             if job.get('color') != "disabled":
                 data['data'].append({'{#JOBNAME}' : job.get('name') })
-    elif prefix is not None:
+    elif jobname is not None:
         for job in jobs.json().get('jobs'):
-            if job.get('name').upper().startswith(prefix.upper()) and job.get('color') != "disabled" :
+            if job.get('name').upper().startswith(jobname.upper()) and job.get('color') != "disabled" :
                 data['data'].append({'{#JOBNAME}' : job.get('name') })
     return json.dumps(data)
 
 @baker.command
-def discovery(prefix=""):
-     return _discovery(prefix=prefix)
+def discovery(jobname=""):
+     return _discovery(jobname=jobname)
 	
 # Get job data
-def _rest(name="",maxtime=0): 
+def _rest(name="",maxtime=10): 
      r = requests.get(JENKINS_URL +  '/view/zabbix/job/' + name + '/lastBuild/api/json?pretty=true', auth=(USERNAME, PASSWORD),verify=False)
      if r.status_code == 200:
          try:
@@ -76,25 +74,25 @@ def _rest(name="",maxtime=0):
      return -1
 
 # Match job name with the available prefixes
-def prefilter(name,prefix=[]):
-    for n in prefix:
-        if name.rfind(n) == 0:
-           result = n
-    return result
+#def prefilter(name,jobname=[]):
+#    for n in prefix:
+#        if name.rfind(n) == 0:
+#           result = n
+#    return result
 
 #Get current jobs status based on its prefix and format its output so zabbix_sender can use 
 def _status(name="",maxtime=0):
-    if name == "zabbix":
-        for job in json.loads(_discovery('DISASTER-'))['data']:
+    if name == "all":
+        for job in json.loads(_discovery)['data']:
            jobname = job.get('{#JOBNAME}')
-           print HOSTNAME, "jenkins.job[" + prefilter(jobname,PREFIX) + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
-        for job in json.loads(_discovery('HIGH-'))['data']:
+           print HOSTNAME, "jenkins.job[" + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
+        for job in json.loads(_discovery)['data']:
            jobname = job.get('{#JOBNAME}')
-           print HOSTNAME, "jenkins.job[" + prefilter(jobname,PREFIX) + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
+           print HOSTNAME, "jenkins.job["  + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
     else:
         for job in json.loads(_discovery(name))['data']:
            jobname = job.get('{#JOBNAME}')
-           print HOSTNAME, "jenkins.job[" + prefilter(jobname,PREFIX) + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
+           print HOSTNAME, "jenkins.job["  + "," + jobname + "]",int(time.time()), _rest(jobname,maxtime)
 
 @baker.command
 def status(name="",maxtime=0):
