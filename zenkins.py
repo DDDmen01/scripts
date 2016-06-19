@@ -80,8 +80,7 @@ def _rest(name="",maxtime=10):
 #        if name.rfind(n) == 0:
 #           result = n
 #    return result
-
-#Get current jobs status based on its prefix and format its output so zabbix_sender can use 
+#Get current jobs status, its output so zabbix_sender can use 
 def _status(name="",maxtime=0):
     if name == "all":
         for job in json.loads(_discovery())['data']:
