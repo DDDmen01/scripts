@@ -83,13 +83,13 @@ done
 mv last_change_new_$app last_change_$app
 }
 
-for x in ${array[@]};
-do
+#for x in ${array[@]};
+#do
 
 while read sLine; do
 # if [[ -z $sLine ]] || [[ "$sLine" == "" ]] || [[ "$sLine" =~ ^#.* ]]; then continue; fi
 #   echo $sLine 
   get_change $sLine
 done < $source 
-done
+#done
 exit 0
