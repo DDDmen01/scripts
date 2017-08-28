@@ -1,0 +1,133 @@
+alpha-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-alpha-region
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+gamma-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-gamma-region
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+beta-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-beta-region
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+delta-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-delta-region
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+omega-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-omega-region
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+test-alpha-old-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-alpha-region-old
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+
+test-beta-old-region:
+    host: test.db-all.igov.org.ua
+    port: 5432
+    db: test-beta-region-old
+    user: activiti
+    password: 2xm53DhqB8VD
+    os_user: centos
+    
+test-alpha-etg-region:
+    host: idoc-etg.test.region.igov.org.ua
+    port: 5432
+    db: test-alpha-etg-region
+    user: igov_user
+    password: qLh6aX5wEkRp5gWs
+    os_user: centos
+    
+test-sigma:
+    host: sigma.test.region.igov.org.ua
+    port: 5432
+    db: test-sigma-region
+    user: igov_user
+    password: U7GHFNABYZG3boWr
+    os_user: centos
+    
+test-alpha-accord-region:
+    host: idoc-accord.test.region.igov.org.ua
+    port: 5432
+    db: test-alpha-accord-region
+    user: igov_user
+    password: qLh6aX5wEkRp5gWs
+    os_user: centos
+    
+    
+test-alpha-comfy-region:
+    host: 91.199.206.19
+    port: 5432
+    db: test-alpha-comfy-region
+    user: igov_user
+    password: qLh6aX5wEkRp5gWs
+    os_user: centos
+    
+test-alpha-cib-region:
+    host: idoc-cib.test.region.igov.org.ua
+    port: 5432
+    db: test-alpha-kib-region
+    user: igov_user
+    password: U7GHFNABYZG3boWr
+    os_user: centos
+
+prod-bts_region:
+    host: 77.109.59.43
+    port: 54231
+    db: prod-bts_region
+    user: idoc_user
+    password: fDv8EamqxpCCj9bt 
+    os_user: centos
+    
+src:
+    - delta-region
+    - alpha-region
+    - beta-region
+    - omega-region
+    - test-alpha-old-region
+    - test-beta-old-region
+    - gamma-region
+    - test-alpha-etg-region
+    - test-alpha-accord-region
+    - test-alpha-comfy-region
+    - test-alpha-cib-region
+    - prod-bts_region
+    
+dst:
+    - delta-region
+    - alpha-region
+    - beta-region
+    - omega-region
+    - test-alpha-old-region
+    - test-beta-old-region
+    - gamma-region
+    - test-alpha-etg-region
+    - test-alpha-accord-region
+    - test-alpha-comfy-region
+    - test-alpha-cib-region
+    - prod-bts_region
+
